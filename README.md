@@ -1,7 +1,7 @@
 PHP Code Generator Utility
 ===========================
 
-A great utility to generate classes. Speed up your development by generating classes directly from the console/terminal.
+A great utility to generate classes. Speed up your development by generating classes directly from the console/terminal by simply answering to questions.
 
 Usage
 =====
