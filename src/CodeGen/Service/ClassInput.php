@@ -37,8 +37,7 @@ class ClassInput
     {
         $obj = new Self();
         $obj->takeInput();
-        $source = $obj->classBuilder;
-        file_put_contents($obj->classBuilder->getName().'.php', $data);
+        return $obj->classBuilder;
     }
 
     /**

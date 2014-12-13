@@ -11,6 +11,7 @@ class GenerateClassController extends AbstractActionController
     public function indexAction()
     {
         $class = ClassInput::init();
-        echo $class->generate();
+        $source = $class->generate();
+        file_put_contents($class->getClassGenerator()->getName().'.php', $source);
     }
 }

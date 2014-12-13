@@ -25,6 +25,14 @@ class ClassBuilder
     }
 
     /**
+     * @return ClassGenerator
+     */
+    public function getClassGenerator()
+    {
+        return $this->class;
+    }
+
+    /**
      * @param string $name
      */
     public function setClassName($name)
