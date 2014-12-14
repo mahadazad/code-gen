@@ -27,7 +27,8 @@ class Module implements ConsoleUsageProviderInterface
     {
         return array(
             // Describe available commands
-            'class'    => 'Generates class',
+            'class  [ --path=path_to_save_at]'    => 'Generates class',
+            array( '--path',     '(optional) path to where the file is saved'),
     );
     }
 }

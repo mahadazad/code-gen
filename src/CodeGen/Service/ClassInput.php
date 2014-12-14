@@ -62,7 +62,7 @@ class ClassInput
      */
     protected function askClassName()
     {
-        Console::getInstance()->write($this->getHeading('PROVIDE CLASS NAME'));
+        Console::getInstance()->write(static::geTheading('PROVIDE CLASS NAME'));
 
         $input = new SingleInput(
             'Please enter class name: ',
@@ -87,7 +87,7 @@ class ClassInput
      */
     protected function askIfAbstract()
     {
-        Console::getInstance()->write($this->getHeading('IS CLASS ABSTRACT?'));
+        Console::getInstance()->write(static::getHeading('IS CLASS ABSTRACT?'));
 
         $isAbstractPrompt = new Confirm('Is class abstract: (y/n) ');
         $isAbstract = $isAbstractPrompt->show();
@@ -103,7 +103,7 @@ class ClassInput
      */
     protected function askNamespace()
     {
-        Console::getInstance()->write($this->getHeading('ADD NAMESPACE'));
+        Console::getInstance()->write(static::getHeading('ADD NAMESPACE'));
 
         $input = new SingleInput(
             'Enter name space (optional): ',
@@ -128,7 +128,7 @@ class ClassInput
      */
     protected function askUses()
     {
-        Console::getInstance()->write($this->getHeading('ADD USES'));
+        Console::getInstance()->write(static::getHeading('ADD USES'));
 
         $usePrompt = new Callback(
             new Line('Enter "use" path (optional): ', true),
@@ -181,7 +181,7 @@ class ClassInput
      */
     protected function askExtends()
     {
-        Console::getInstance()->write($this->getHeading('CLASS EXTENDS?'));
+        Console::getInstance()->write(static::getHeading('CLASS EXTENDS?'));
 
         $extendsPrompt = new Line('Class extends (optional): ', true);
         if ($extends = $extendsPrompt->show()) {
@@ -198,7 +198,7 @@ class ClassInput
      */
     protected function askImplements()
     {
-        Console::getInstance()->write($this->getHeading('CLASS IMPEMENTS INTERFACE(S)?'));
+        Console::getInstance()->write(static::getHeading('CLASS IMPEMENTS INTERFACE(S)?'));
 
         $interfacePrompt = $this->promptIfTruePrompt(
             'Does the class implements interface(s): (y/n) ',
@@ -221,7 +221,7 @@ class ClassInput
      */
     protected function askProperties()
     {
-        Console::getInstance()->write($this->getHeading('ADD PROPERTIES'));
+        Console::getInstance()->write(static::getHeading('ADD PROPERTIES'));
 
         $namePrompt = $this->getValidNamePrompt('Enter property name: ', 'Enter a valid property name: ', true);
         $visiblityAndStaticPrompt = $this->getVisiblityAndStaticPrompt();
@@ -264,7 +264,7 @@ class ClassInput
      */
     protected function askMethods()
     {
-        Console::getInstance()->write($this->getHeading('ADD METHODS'));
+        Console::getInstance()->write(static::getHeading('ADD METHODS'));
 
         $namePrompt = $this->getValidNamePrompt('Enter method name: ', 'Enter a valid method name: ', true);
         $visiblityAndStaticPrompt = $this->getVisiblityAndStaticPrompt();
@@ -433,21 +433,46 @@ class ClassInput
     }
 
     /**
-     * Creates a headding with 80 characters on each row and text centered
+     * Creates a headding default 80 characters on each row and text centered
      *
-     * @return string
+     * @return string|array
      */
-    protected function getHeading($msg)
+    public static function getHeading($msg)
     {
-        $len = strlen($msg);
-        $leftSpaces = round(38 - $len + $len/2);
-        $rightSpaces = 80-($leftSpaces+$len)-2;
+        $heading = '';
+        $stars = 80;
 
-        return PHP_EOL.str_repeat('*', 80).PHP_EOL.
-             '*'.str_repeat(' ', $leftSpaces).
-             $msg.
-             str_repeat(' ', $rightSpaces).'*'.
-             PHP_EOL.str_repeat('*', 80).
-             PHP_EOL.PHP_EOL;
+        if (is_array($msg)) {
+            $lens = array_map('strlen', $msg);
+            $len = max($lens);
+        }
+        else {
+            $len = strlen($msg);
+            $msg = array($msg);
+        }
+
+        if ($len >= $stars) {
+            $stars = $len + 4;
+        }
+
+        $heading .= PHP_EOL.str_repeat('*', $stars).PHP_EOL;
+
+
+        foreach ($msg as $line) {
+            $len = strlen($line);
+            $leftSpaces = round($stars/2 - $len + $len/2);
+            $rightSpaces = $stars-($leftSpaces+$len);
+            
+            $heading .= '* '.str_repeat(' ', $leftSpaces - 2).
+                        $line.
+                        str_repeat(' ', $rightSpaces - 2).' *'
+                        . PHP_EOL;
+        }
+
+        $heading .= str_repeat('*', $stars).
+                    PHP_EOL.PHP_EOL;
+     
+
+        return $heading;        
     }
 }

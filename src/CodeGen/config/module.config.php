@@ -11,7 +11,7 @@ return array(
             'routes' => array(
                 'class-gen' => array(
                     'options' => array(
-                        'route' => 'class',
+                        'route' => 'class [--path=]',
                         'defaults' => array(
                             '__NAMESPACE__' => 'CodeGen\Controller',
                             'controller' => 'CodeGen\Controller\GenerateClass',
