@@ -62,7 +62,7 @@ class ClassInput
      */
     protected function askClassName()
     {
-        Console::getInstance()->write(static::geTheading('PROVIDE CLASS NAME'));
+        Console::getInstance()->write(static::getHeading('PROVIDE CLASS NAME'));
 
         $input = new SingleInput(
             'Please enter class name: ',
