@@ -35,7 +35,7 @@ class ClassInput
 
     public static function init()
     {
-        $obj = new Self();
+        $obj = new ClassInput();
         $obj->takeInput();
         return $obj->classBuilder;
     }
