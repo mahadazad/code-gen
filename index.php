@@ -3,7 +3,9 @@
 $basePath = getcwd();
 
 // load autoloader
-if (file_exists("$basePath/vendor/autoload.php")) {
+if (\Phar::running()) {
+    require_once __DIR__ . '/vendor/autoload.php';
+} elseif (file_exists("$basePath/vendor/autoload.php")) {
     require_once "$basePath/vendor/autoload.php";
 } elseif (file_exists("$basePath/init_autoload.php")) {
     require_once "$basePath/init_autoload.php";
