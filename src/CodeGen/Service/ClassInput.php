@@ -428,12 +428,16 @@ class ClassInput
     }
 
     /**
-     * Creates a headding default 80 characters on each row and text centered
+     * Creates a heading default 80 characters on each row and text centered
      *
      * @return string|array
      */
     public static function getHeading($msg)
     {
+        if (empty($msg)) {
+            return;
+        }
+
         $heading = '';
         $stars = 80;
 

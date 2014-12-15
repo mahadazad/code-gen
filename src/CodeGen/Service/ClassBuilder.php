@@ -101,8 +101,11 @@ class ClassBuilder
         $prop = new PropertyGenerator();
         $prop->setName($propertyName)
             ->setVisibility($modifer)
-            ->setStatic($isStatic)
-            ->setDefaultValue($defaultValue, $type);
+            ->setStatic($isStatic);
+
+        if (!empty($defaultValue)) {
+            $prop->setDefaultValue($defaultValue, $type);
+        }
 
         $this->class->addPropertyFromGenerator($prop);
 

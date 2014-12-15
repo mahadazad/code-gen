@@ -13,7 +13,7 @@ class GenerateClassController extends AbstractActionController
     	$path = $this->getRequest()->getParam('path');
 
         $class = ClassInput::init();
-        $source = $class->generate();
+        $source = '<' . '?php' . PHP_EOL . $class->generate();
         $filename = $class->getClassGenerator()->getName().'.php';
 
         if ($path) {
@@ -26,7 +26,7 @@ class GenerateClassController extends AbstractActionController
         	$savePath = getcwd(). DIRECTORY_SEPARATOR . $filename;
         }
 
-        Console::getInstance()->write(ClassInput::geTheading(array('FILE GENERATED AT: ', $savePath)));
+        Console::getInstance()->write(ClassInput::getHeading(array('FILE GENERATED AT: ', $savePath)));
         file_put_contents($savePath, $source);
     }
 }
