@@ -64,17 +64,12 @@ class ClassInput
     {
         Console::getInstance()->write(static::getHeading('PROVIDE CLASS NAME'));
 
-        $input = new SingleInput(
+        $input = $this->getValidNamePrompt(
             'Please enter class name: ',
             'Please enter a valid class name: ',
-            true,
-            function ($input) {
-                return preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $input);
-            }
+            true
         );
-
         $name = $input->show();
-
         $this->classBuilder->setClassName(ucfirst($name));
 
         return $this;
@@ -106,7 +101,7 @@ class ClassInput
         Console::getInstance()->write(static::getHeading('ADD NAMESPACE'));
 
         $input = new SingleInput(
-            'Enter name space (optional): ',
+            'Enter namespace (optional): ',
             '',
             false,
             function ($input) {
@@ -456,8 +451,6 @@ class ClassInput
         }
 
         $heading .= PHP_EOL.str_repeat('*', $stars).PHP_EOL;
-
-
         foreach ($msg as $line) {
             $len = strlen($line);
             $leftSpaces = round($stars/2 - $len + $len/2);
@@ -472,7 +465,6 @@ class ClassInput
         $heading .= str_repeat('*', $stars).
                     PHP_EOL.PHP_EOL;
      
-
         return $heading;        
     }
 }
