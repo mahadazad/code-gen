@@ -1,7 +1,8 @@
 <?php
 
-namespace CodeGen\Service;
+namespace CodeGen\Loader;
 
+use CodeGen\Service\ClassBuilder;
 use ConsoleEx\Prompt\SingleInput;
 use ConsoleEx\Prompt\MultiInputPrompt;
 use ConsoleEx\Prompt\PromptComposite;
@@ -12,7 +13,7 @@ use Zend\Console\Prompt\Select;
 use Zend\Console\Prompt\Confirm;
 use Zend\Console\Prompt\PromptInterface;
 
-class ClassInput
+class ConsoleLoader implements LoaderInterface
 {
     /**
      * @var ClassBuilder
@@ -24,20 +25,15 @@ class ClassInput
      */
     protected $types = array('i' => 'int', 'b' => 'bool', 's' => 'string', 'f' => 'float', 'r' => 'resource', 'm' => 'mixed', 'o' => 'object');
 
-    protected function __construct()
+    public function __construct()
     {
         $this->classBuilder = new ClassBuilder();
     }
 
-    protected function __clone()
+    public function load()
     {
-    }
-
-    public static function init()
-    {
-        $obj = new ClassInput();
-        $obj->takeInput();
-        return $obj->classBuilder;
+        $this->takeInput();
+        return $this->classBuilder;
     }
 
     /**

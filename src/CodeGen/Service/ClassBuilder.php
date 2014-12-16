@@ -18,6 +18,7 @@ class ClassBuilder
     const NONE = '____NONE____';
 
     protected $class;
+    protected $savePath;
 
     public function __construct()
     {
@@ -37,6 +38,10 @@ class ClassBuilder
      */
     public function setClassName($name)
     {
+        if (empty($name)) {
+            throw new \InvalidArgumentException('class name can not be empty');
+        }
+
         $this->class->setName($name);
     }
 
@@ -46,7 +51,7 @@ class ClassBuilder
     public function setAbstract($isAbstract)
     {
         if ($isAbstract) {
-            $this->class->setAbstract($isAbstract);
+            $this->class->setAbstract((boolean)$isAbstract);
         }
     }
 
@@ -55,7 +60,7 @@ class ClassBuilder
      */
     public function setInterfaces($interfaces = array())
     {
-        if ($interfaces) {
+        if ($interfaces && is_array($interfaces)) {
             $this->class->setImplementedInterfaces($interfaces);
         }
     }
@@ -65,7 +70,9 @@ class ClassBuilder
      */
     public function setExtends($extends)
     {
-        $this->class->setExtendedClass($extends);
+        if(!empty($extends)) {
+            $this->class->setExtendedClass($extends);
+        }
     }
 
     /**
@@ -73,7 +80,7 @@ class ClassBuilder
      */
     public function setNamespaceName($namespaceName)
     {
-        if ($namespaceName) {
+        if (!empty($namespaceName)) {
             $this->class->setNamespaceName($namespaceName);
         }
     }
@@ -100,8 +107,8 @@ class ClassBuilder
     {
         $prop = new PropertyGenerator();
         $prop->setName($propertyName)
-            ->setVisibility($modifer)
-            ->setStatic($isStatic);
+             ->setVisibility($modifer)
+             ->setStatic($isStatic);
 
         if (!empty($defaultValue)) {
             $prop->setDefaultValue($defaultValue, $type);
@@ -160,8 +167,8 @@ class ClassBuilder
         $method = new MethodGenerator();
         $method->setName($methodName)
                 ->setVisibility($modifer)
-                ->setStatic($isStatic)
-                ->setFinal($isFinal)
+                ->setStatic((boolean)$isStatic)
+                ->setFinal((boolean)$isFinal)
                 ->setBody($content);
 
         if ($parameters) {
@@ -174,7 +181,7 @@ class ClassBuilder
                 $param = new ParameterGenerator();
                 $param->setName($p->name)
                         ->setType($p->type)
-                        ->setPassedByReference($p->isByRef);
+                        ->setPassedByReference((boolean)$p->isByRef);
 
                 if ($p->defaultValue !== static::NONE) {
                     $param->setDefaultValue($p->defaultValue);
@@ -192,8 +199,26 @@ class ClassBuilder
         return $method;
     }
 
+    /**
+     * @param string
+     */
+    public function setSavePath($path)
+    {
+        $this->savePath = $path;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSavePath()
+    {
+        return $this->savePath;
+    }
+
     public function generate()
     {
         return $this->class->generate();
     }
+
 }
