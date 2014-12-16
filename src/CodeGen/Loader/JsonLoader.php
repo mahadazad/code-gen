@@ -2,11 +2,9 @@
 
 namespace CodeGen\Loader;
 
-use CodeGen\Service\ClassBuilder;
 
 class JsonLoader extends ArrayLoader
 {
-
     /**
      * @param string json string or json file
      */
@@ -20,5 +18,4 @@ class JsonLoader extends ArrayLoader
 
         $this->config = $config;
     }
-
 }

@@ -33,6 +33,7 @@ class ConsoleLoader implements LoaderInterface
     public function load()
     {
         $this->takeInput();
+
         return $this->classBuilder;
     }
 
@@ -440,8 +441,7 @@ class ConsoleLoader implements LoaderInterface
         if (is_array($msg)) {
             $lens = array_map('strlen', $msg);
             $len = max($lens);
-        }
-        else {
+        } else {
             $len = strlen($msg);
             $msg = array($msg);
         }
@@ -455,16 +455,16 @@ class ConsoleLoader implements LoaderInterface
             $len = strlen($line);
             $leftSpaces = round($stars/2 - $len + $len/2);
             $rightSpaces = $stars-($leftSpaces+$len);
-            
+
             $heading .= '* '.str_repeat(' ', $leftSpaces - 2).
                         $line.
                         str_repeat(' ', $rightSpaces - 2).' *'
-                        . PHP_EOL;
+                        .PHP_EOL;
         }
 
         $heading .= str_repeat('*', $stars).
                     PHP_EOL.PHP_EOL;
-     
-        return $heading;        
+
+        return $heading;
     }
 }

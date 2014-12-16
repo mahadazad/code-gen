@@ -16,7 +16,7 @@ class GenerateClassController extends AbstractActionController
         $path = $this->getRequest()->getParam('path');
         $fromJson = $this->getRequest()->getParam('from-json');
         $replace = $this->getRequest()->getParam('replace');
-    	$replaceWith = $this->getRequest()->getParam('replace-with');
+        $replaceWith = $this->getRequest()->getParam('replace-with');
 
         $savedFiles = array('FILE GENERATED AT: ');
 
@@ -25,8 +25,7 @@ class GenerateClassController extends AbstractActionController
             if ($replace && $replaceWith) {
                 $loader = new ReplaceLoader($loader, $replace, $replaceWith);
             }
-        }
-        else {
+        } else {
             $loader = new ConsoleLoader();
         }
 
@@ -36,8 +35,7 @@ class GenerateClassController extends AbstractActionController
             foreach ($classes as $class) {
                 $savedFiles[] = $this->saveFile($class, $path);
             }
-        }
-        else {
+        } else {
             $savedFiles[] = $this->saveFile($classes, $path);
         }
 
@@ -46,21 +44,22 @@ class GenerateClassController extends AbstractActionController
 
     /**
      * @param ClassBuilder $class
-     * @param string $basePath
+     * @param string       $basePath
      */
     protected function saveFile(ClassBuilder $class, $basePath = '')
     {
-        $source = '<' . '?php' . PHP_EOL . $class->generate();
+        $source = '<'.'?php'.PHP_EOL.$class->generate();
         $savePath = $this->getSavePath($class, $basePath);
         $path = dirname($savePath);
         @mkdir($path, 0777, true);
         file_put_contents($savePath, $source);
+
         return $savePath;
     }
 
     /**
      * @param ClassBuilder $class
-     * @param string $basePath
+     * @param string       $basePath
      */
     protected function getSavePath(ClassBuilder $class, $basePath = '')
     {
@@ -68,17 +67,15 @@ class GenerateClassController extends AbstractActionController
 
         $savePath = '';
         if (!empty($basePath) && !empty($classSavePath)) {
-            $savePath = $basePath . DIRECTORY_SEPARATOR . $classSavePath . DIRECTORY_SEPARATOR;
-        }
-        else if (!empty($classSavePath)) {
-            $savePath = $classSavePath . DIRECTORY_SEPARATOR;
-        }
-        else if (!empty($basePath)) {
-            $savePath = rtrim($basePath, '\/') . DIRECTORY_SEPARATOR;
+            $savePath = $basePath.DIRECTORY_SEPARATOR.$classSavePath.DIRECTORY_SEPARATOR;
+        } elseif (!empty($classSavePath)) {
+            $savePath = $classSavePath.DIRECTORY_SEPARATOR;
+        } elseif (!empty($basePath)) {
+            $savePath = rtrim($basePath, '\/').DIRECTORY_SEPARATOR;
         }
 
         if (substr(strtolower(rtrim($savePath, DIRECTORY_SEPARATOR)), -4) !== '.php') {
-            $savePath .= $class->getClassGenerator()->getName() . '.php';
+            $savePath .= $class->getClassGenerator()->getName().'.php';
         }
 
         return $savePath;

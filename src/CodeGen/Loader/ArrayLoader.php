@@ -50,19 +50,20 @@ class ArrayLoader implements LoaderInterface
     }
 
     /**
-     * @param ClassBuilder $class
-     * @param array $config
+     * @param  ClassBuilder $class
+     * @param  array        $config
      * @return ArrayLoader
      */
     protected function setClassName(ClassBuilder $class, array $config)
     {
         $class->setClassName($config['name']);
+
         return $this;
     }
 
     /**
-     * @param ClassBuilder $class
-     * @param array $config
+     * @param  ClassBuilder $class
+     * @param  array        $config
      * @return ArrayLoader
      */
     protected function setAbstract(ClassBuilder $class, array $config)
@@ -75,8 +76,8 @@ class ArrayLoader implements LoaderInterface
     }
 
     /**
-     * @param ClassBuilder $class
-     * @param array $config
+     * @param  ClassBuilder $class
+     * @param  array        $config
      * @return ArrayLoader
      */
     protected function setNamespace(ClassBuilder $class, array $config)
@@ -89,15 +90,15 @@ class ArrayLoader implements LoaderInterface
     }
 
     /**
-     * @param ClassBuilder $class
-     * @param array $config
+     * @param  ClassBuilder $class
+     * @param  array        $config
      * @return ArrayLoader
      */
     protected function setUses(ClassBuilder $class, array $config)
     {
         if (array_key_exists('uses', $config) && is_array($config['uses'])) {
             foreach ($config['uses'] as $use) {
-                if(array_key_exists('use', $use)) {
+                if (array_key_exists('use', $use)) {
                     $alias = array_key_exists('alias', $config) ? $config['alias'] : null;
                     $class->addUse($use['use'], $alias);
                 }
@@ -108,8 +109,8 @@ class ArrayLoader implements LoaderInterface
     }
 
     /**
-     * @param ClassBuilder $class
-     * @param array $config
+     * @param  ClassBuilder $class
+     * @param  array        $config
      * @return ArrayLoader
      */
     protected function setExtends(ClassBuilder $class, array $config)
@@ -122,8 +123,8 @@ class ArrayLoader implements LoaderInterface
     }
 
     /**
-     * @param ClassBuilder $class
-     * @param array $config
+     * @param  ClassBuilder $class
+     * @param  array        $config
      * @return ArrayLoader
      */
     protected function setImplements(ClassBuilder $class, array $config)
@@ -136,8 +137,8 @@ class ArrayLoader implements LoaderInterface
     }
 
     /**
-     * @param ClassBuilder $class
-     * @param array $config
+     * @param  ClassBuilder $class
+     * @param  array        $config
      * @return ArrayLoader
      */
     protected function setProperties(ClassBuilder $class, array $config)
@@ -159,14 +160,13 @@ class ArrayLoader implements LoaderInterface
     }
 
     /**
-     * @param ClassBuilder $class
-     * @param array $config
+     * @param  ClassBuilder $class
+     * @param  array        $config
      * @return ArrayLoader
      */
     protected function setMethods(ClassBuilder $class, array $config)
     {
         if (array_key_exists('methods', $config) && is_array($config['methods'])) {
-
             foreach ($config['methods'] as $method) {
                 if (array_key_exists('name', $method)) {
                     $name = $method['name'];
@@ -199,8 +199,8 @@ class ArrayLoader implements LoaderInterface
     }
 
     /**
-     * @param ClassBuilder $class
-     * @param array $config
+     * @param  ClassBuilder $class
+     * @param  array        $config
      * @return ArrayLoader
      */
     protected function setSavePath(ClassBuilder $class, array $config)

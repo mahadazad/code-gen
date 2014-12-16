@@ -51,7 +51,7 @@ class ClassBuilder
     public function setAbstract($isAbstract)
     {
         if ($isAbstract) {
-            $this->class->setAbstract((boolean)$isAbstract);
+            $this->class->setAbstract((boolean) $isAbstract);
         }
     }
 
@@ -70,7 +70,7 @@ class ClassBuilder
      */
     public function setExtends($extends)
     {
-        if(!empty($extends)) {
+        if (!empty($extends)) {
             $this->class->setExtendedClass($extends);
         }
     }
@@ -167,8 +167,8 @@ class ClassBuilder
         $method = new MethodGenerator();
         $method->setName($methodName)
                 ->setVisibility($modifer)
-                ->setStatic((boolean)$isStatic)
-                ->setFinal((boolean)$isFinal)
+                ->setStatic((boolean) $isStatic)
+                ->setFinal((boolean) $isFinal)
                 ->setBody($content);
 
         if ($parameters) {
@@ -181,7 +181,7 @@ class ClassBuilder
                 $param = new ParameterGenerator();
                 $param->setName($p->name)
                         ->setType($p->type)
-                        ->setPassedByReference((boolean)$p->isByRef);
+                        ->setPassedByReference((boolean) $p->isByRef);
 
                 if ($p->defaultValue !== static::NONE) {
                     $param->setDefaultValue($p->defaultValue);
@@ -205,6 +205,7 @@ class ClassBuilder
     public function setSavePath($path)
     {
         $this->savePath = $path;
+
         return $this;
     }
 
@@ -220,5 +221,4 @@ class ClassBuilder
     {
         return $this->class->generate();
     }
-
 }

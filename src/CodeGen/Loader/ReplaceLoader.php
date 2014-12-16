@@ -10,8 +10,8 @@ class ReplaceLoader implements LoaderInterface
 
     /**
      * @param LoaderInterface $loader
-     * @param string $search
-     * @param string $replace
+     * @param string          $search
+     * @param string          $replace
      */
     public function __construct(LoaderInterface $loader, $search, $replace)
     {
@@ -37,5 +37,4 @@ class ReplaceLoader implements LoaderInterface
     {
         return $this->innerLoader->load();
     }
-
 }
