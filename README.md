@@ -6,7 +6,12 @@ A great utility to generate classes. Speed up your development by generating cla
 Usage
 =====
 ```
-php index.php class           create classes
+  index.php class  [--path=path_to_save_at] [--from-json  [--replace] [--replace-with]]    Generates class
+
+  --path            (optional) path to where the file is saved
+  --from-json       (optional) loads config from json
+  --replace         (optional) search a string in config
+  --replace-with    (optional) replace the searched string with the given string 
 ```
 
 Example Input:

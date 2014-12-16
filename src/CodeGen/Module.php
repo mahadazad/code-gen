@@ -27,7 +27,7 @@ class Module implements ConsoleUsageProviderInterface
     {
         return array(
             // Describe available commands
-            'class  [ --path=path_to_save_at]'    => 'Generates class',
+            'class  [--path=path_to_save_at] [--from-json  [--replace] [--replace-with]]'    => 'Generates class',
             array( '--path',         '(optional) path to where the file is saved'),
             array( '--from-json',    '(optional) loads config from json'),
             array( '--replace',      '(optional) search a string in config'),
